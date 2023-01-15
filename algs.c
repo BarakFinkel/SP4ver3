@@ -162,17 +162,17 @@ int dijkstra(pnode *head, int start_node, int end_node, int max_id)
 {
     int dist[max_id + 1];
     int visited[max_id + 1];
-    
+    int to_visit[max_id + 1];
+
     for (int i = 0; i <= max_id; i++) {
         dist[i] = INT_MAX;
         visited[i] = 0;
+        to_visit[i] = i;
     }
     
     dist[start_node] = 0;
     
-    int to_visit[max_id + 1];
-    
-    for(int i = 0; i <= max_id; i++) { to_visit[i] = i; }
+    for(int i = 0; i <= max_id; i++) {  }
     
     while (to_visit[0] != -1) 
     {
@@ -181,8 +181,11 @@ int dijkstra(pnode *head, int start_node, int end_node, int max_id)
 
         for (int i = 0; i <= max_id; i++) 
         {
-            if (visited[to_visit[i]]) { continue; }
+            printf("visited[to_visit[%d]] = %d, ", i ,visited[to_visit[i]]);
+            printf("dist[to_visit[%d]] = %d\n", i ,dist[to_visit[i]]);
             
+            if (visited[to_visit[i]]) { continue; }
+
             if (dist[to_visit[i]] < min) 
             {
                 min = dist[to_visit[i]];
