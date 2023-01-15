@@ -25,7 +25,6 @@ char build_graph(pnode *head)
     if (listMade == -1)
     {
         printf("Allocating memory failed. Exiting Program..."); // If allocating space for the graph's nodes fails, we exit the program.
-        exit(-1);
     }
 
     k = read_number(&temp);
@@ -57,7 +56,6 @@ char build_graph(pnode *head)
             if (edgeMade == -1)
             {
                 printf("Allocating memory failed. Exiting Program..."); // If allocating space for an edge fails, we exit the program.
-                exit(-1);
             }
         }
 
@@ -346,7 +344,8 @@ int **matrix(int k)
     int **mat = (int **)malloc(numOfLines * sizeof(int *)); // We allocate memory for the lines of the matrix.
     if (mat == NULL)
     {
-        exit(-1);
+        free(mat);
+        return NULL;
     } // If the allocation fails, we exit the program.
 
     for (int i = 0; i < numOfLines; i++) // We allocate memory for the columns of the matrix.
@@ -354,7 +353,8 @@ int **matrix(int k)
         mat[i] = (int *)malloc(k * sizeof(int));
         if (mat[i] == NULL)
         {
-            exit(-1);
+            free(mat);
+            return NULL;
         } // If the allocation fails, we exit the program.
     }
 
