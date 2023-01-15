@@ -9,4 +9,6 @@ int read_num(char *c);
 void add_edge(pnode *head, pnode from_node, int to_node, int weight);
 int get_max_id(pnode *head);
 pnode find_prev(pnode *head, int id);
-int dijkstra(pnode *head, int start_node, int end_node, int highest_node_id);
+int dijkstra(pnode *head, int start_node, int end_node);
+void reset_dijkstra(pnode *head);
+pnode find_min(pnode *head);

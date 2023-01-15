@@ -157,7 +157,7 @@ int get_max_id(pnode *head){
     }
     return max;
 }
-
+/*
 int dijkstra(pnode *head, int start_node, int end_node, int max_id)
 {
     int dist[max_id + 1];
@@ -213,7 +213,7 @@ int dijkstra(pnode *head, int start_node, int end_node, int max_id)
     
     return dist[end_node];
 }
-
+*/
 void delete_node(pnode *head, int nodeId)
 {
     pnode to_delete = find_node(head, nodeId);
@@ -250,4 +250,47 @@ pnode find_prev(pnode *head, int id){
         curr = curr->next;
     }
     return NULL;
+}
+
+void reset_dijkstra(pnode *head){
+    pnode currNode = *head;
+    while(currNode != NULL){
+        currNode->visited = 0;
+        currNode->distance = INT_MAX;
+        currNode = currNode->next;
+    }
+}
+int dijkstra(pnode *head, int start_node, int end_node)
+{
+    reset_dijkstra(head);
+    pnode start = find_node(head, start_node);
+    pnode end = find_node(head, end_node);
+    start->distance = 0;
+    pnode currNode = find_min(head);
+    while(currNode != NULL){
+        currNode->visited = 1;
+        pedge currEdge = currNode->edges;
+        while(currEdge != NULL){
+            if(currEdge->endpoint->distance > currNode->distance + currEdge->weight){
+                //printf("updating %d to %d\n", currEdge->endpoint->node_num, currNode->distance + currEdge->weight);
+                currEdge->endpoint->distance = currNode->distance + currEdge->weight;
+            }
+            currEdge = currEdge->next;
+        }
+        currNode = find_min(head);
+    }
+    return end->distance;
+}
+pnode find_min(pnode *head){
+    pnode currNode = *head;
+    pnode minNode = NULL;
+    int min = __INT_MAX__;
+    while(currNode != NULL){
+        if(currNode->visited == 0 && currNode->distance < min){
+            min = currNode->distance;
+            minNode = currNode;
+        }
+        currNode = currNode->next;
+    }
+    return minNode;
 }

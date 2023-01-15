@@ -54,7 +54,7 @@ int main()
             c = getchar();
             int src = read_number(&c);
             int dest = read_number(&c);
-            int ans = dijkstra(head, src, dest, get_max_id(head));
+            int ans = dijkstra(head, src, dest);
             if (ans == INT_MAX) { ans = -1; }
             printf("Dijsktra shortest path: %d \n", ans);
         }

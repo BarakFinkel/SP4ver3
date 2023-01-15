@@ -161,6 +161,7 @@ int create_node_list(pnode *head, int numOfNodes)
 
         curr = next;
     }
+    reset_dijkstra(head);
 
     return 0;
 }
@@ -418,7 +419,7 @@ int dijkstra_matrix(pnode *head, int **mat, int k)
 {
     int numOfLines = factorial(k); // We calculate the number of lines of the matrix.
     int min = INT_MAX;             // We initialize the minimum sum of the weights of the edges in the path to INT_MAX.
-    int max_id = get_max_id(head); // We get the maximum ID of the nodes in the graph.
+    //int max_id = get_max_id(head); // We get the maximum ID of the nodes in the graph.
     for (int i = 0; i < numOfLines; i++)
     {
         int sum = 0; // We initialize the sum of the weights of the edges in the path to 0.
@@ -427,7 +428,8 @@ int dijkstra_matrix(pnode *head, int **mat, int k)
         {
             pnode start = find_node(head, mat[i][j]);                       // We find the node with ID mat[i][j].
             pnode end = find_node(head, mat[i][j + 1]);                     // We find the node with ID mat[i][j+1].
-            int w = dijkstra(head, start->node_num, end->node_num, max_id); // We run dijkstra's algorithm on the nodes we found.
+            int w = dijkstra(head, start->node_num, end->node_num); // We run dijkstra's algorithm on the nodes we found.
+            //printf("w = %d\n", w);
             if (w == INT_MAX)
             {
                 sum = w;

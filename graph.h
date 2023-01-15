@@ -7,6 +7,8 @@ typedef struct GRAPH_NODE_ node, *pnode;
 typedef struct GRAPH_NODE_
 {
     int node_num;
+    int visited;
+    int distance;
     pedge edges;
     struct GRAPH_NODE_ *next;
 } node, *pnode;
